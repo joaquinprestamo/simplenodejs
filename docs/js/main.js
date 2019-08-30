@@ -7,7 +7,7 @@ window.onload = function(){
 function peticionAPI(){
 	// Crea un objeto
 	let mensaje = new XMLHttpRequest();
-	mensaje.open("GET","https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fwww.clarin.com%2Frss%2Fdeportes%2Ffutbol%2F");
+	mensaje.open("GET","https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fwww.clarin.com%2Frss%2Fdeportes%2F");
 	mensaje.send();
 	mensaje.onload = function(){
 		if(mensaje.status == 200){
