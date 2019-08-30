@@ -1,13 +1,13 @@
 window.onload = function(){
 	peticionAPI();	
-	document.querySelector("article p:nth-of-type(1)").classList.add("d-none");
+	document.querySelector("article:nth-of-type(1)").classList.add("d-none");
 };
 
 
 function peticionAPI(){
 	// Crea un objeto
 	let mensaje = new XMLHttpRequest();
-	mensaje.open("GET","https://api.sheety.co/5c34824b-0097-4e84-b841-e38fb0fbe1cd");
+	mensaje.open("GET","https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fwww.clarin.com%2Frss%2Fdeportes%2Ffutbol%2F");
 	mensaje.send();
 	mensaje.onload = function(){
 		if(mensaje.status == 200){
@@ -18,16 +18,18 @@ function peticionAPI(){
 }
 
 function renderizar(noticias){
-	noticias.forEach(
+	noticias.items.forEach(
 		function(noticia){
 			let articuloMatriz = document.querySelector("article.noticia");
 			let articuloCopia = articuloMatriz.cloneNode(true);
-			articuloCopia.querySelector("h3").innerText = noticia.titulo;
-			articuloCopia.querySelector("img").src = noticia.imagen;
-			articuloCopia.querySelector("a").innerText = noticia.autor;
-			articuloCopia.querySelector("p:last-child").innerText = noticia.detalle;
+			articuloCopia.classList.remove("d-none");
+			articuloCopia.querySelector("h3").innerText = noticia.title;
+			articuloCopia.querySelector("img").src = noticia.enclosure.link;
+			articuloCopia.querySelector("a").innerText = noticia.author;
+			articuloCopia.querySelector("p:last-child").innerText = noticia.description;
+			
 
-			document.querySelector("#ultimas-noticias").appendChild(articuloCopia);
+			document.querySelector("#ultimas-noticias").appendChild(articuloCopia);			
 		}
 	)
 }
