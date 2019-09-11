@@ -1,7 +1,8 @@
 const http = require("http")
 const fs = require("fs")
+const querystring = require("querystring")
 
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 3000 
 
 http.createServer((request, response) => {
 		
@@ -9,6 +10,13 @@ http.createServer((request, response) => {
 
 		let file = (request.url == "/") ? "index.html" : request.url
 			file = (file.match(/[^.]+(\.[^?#]+)?/) || [])[0]
+
+		if(request.url=="/umpalumpaServices"){
+			request.on("data", function(body){
+				console.log(body.toString())
+				response.end("Mensaje enviado");
+			})
+		}
 		
 		let ext = file.substring( file.lastIndexOf(".") ).toLowerCase()
 
